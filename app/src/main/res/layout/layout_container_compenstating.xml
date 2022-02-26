@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/dp_16">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.36" />
+
+        <TextView
+            android:id="@+id/textViewPrefixAperture"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_8"
+            android:singleLine="true"
+            android:text="@string/title_prefix_aperture"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/sliderAperture"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:valueFrom="1.0"
+            android:valueTo="22.0"
+            app:layout_constraintBottom_toBottomOf="@id/textViewPrefixAperture"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="@id/textViewPrefixAperture" />
+
+        <TextView
+            android:id="@+id/textViewPrefixISO"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_8"
+            android:singleLine="true"
+            android:text="@string/title_prefix_iso"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewPrefixAperture" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/sliderISO"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:valueFrom="100.0"
+            android:valueTo="25600.0"
+            app:layout_constraintBottom_toBottomOf="@id/textViewPrefixISO"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="@id/textViewPrefixISO" />
+
+        <TextView
+            android:id="@+id/textViewPrefixShutterSpeed"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_8"
+            android:singleLine="true"
+            android:text="@string/title_prefix_shutter_speed"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewPrefixISO" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/sliderShutterSpeed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:valueFrom="1.0"
+            android:valueTo="2000.0"
+            app:layout_constraintBottom_toBottomOf="@id/textViewPrefixShutterSpeed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="@id/textViewPrefixShutterSpeed" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/buttonTakePhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_16"
+            android:backgroundTint="@android:color/darker_gray"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_baseline_camera_alt_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewPrefixShutterSpeed"
+            app:tint="@color/white" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

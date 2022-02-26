@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">GCamera</string>
+    <string name="title_prefix_aperture">Aperture</string>
+    <string name="title_prefix_iso">ISO</string>
+    <string name="title_prefix_shutter_speed">Shutter Speed</string>
+    <string name="msg_err_no_camera_permissions">Permissions not granted by the user</string>
+    <string name="msg_err_bind_use_cases">Use case binding failed</string>
 </resources>
