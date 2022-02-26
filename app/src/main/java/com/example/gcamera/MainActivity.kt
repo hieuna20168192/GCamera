@@ -1,13 +1,11 @@
 package com.example.gcamera
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
-import androidx.camera.core.Camera
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.Preview
+import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -17,6 +15,7 @@ import com.example.gcamera.actions.ShutterSpeedSlideAction
 import com.example.gcamera.actions.EVProducer
 import com.example.gcamera.base.BaseActivity
 import com.example.gcamera.databinding.ActivityMainBinding
+import com.example.gcamera.extensions.createInternalDirectory
 import java.lang.Exception
 import kotlin.math.roundToInt
 
@@ -25,7 +24,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val layoutId: Int = R.layout.activity_main
     private var imageCapture: ImageCapture? = null
     private var camera: Camera? = null
-    private val actionManager: EVProducer = EVProducer { ev ->
+    private val evProducer: EVProducer = EVProducer { ev ->
         camera?.cameraControl?.setExposureCompensationIndex(ev)
     }
 
@@ -88,7 +87,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private fun initCompensationListener() {
         binding.includeController.sliderAperture.apply {
             addOnChangeListener { _, value, _ ->
-                actionManager.invalidate(ApertureSlideAction(value))
+                evProducer.invalidate(ApertureSlideAction(value))
             }
             setLabelFormatter { value ->
                 "f/${(value.roundToInt())}"
@@ -97,14 +96,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         binding.includeController.sliderISO.apply {
             addOnChangeListener { _, value, _ ->
-                actionManager.invalidate(IsoSlideAction(value))
+                evProducer.invalidate(IsoSlideAction(value))
             }
         }
 
         binding.includeController.sliderShutterSpeed.apply {
             addOnChangeListener { _, value, _ ->
                 val realValue = 1 / value
-                actionManager.invalidate(ShutterSpeedSlideAction(realValue))
+                evProducer.invalidate(ShutterSpeedSlideAction(realValue))
             }
             setLabelFormatter { value ->
                 "1/${(value.roundToInt())}"
@@ -114,8 +113,48 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun initTakePhotoListener() {
         binding.includeController.buttonTakePhoto.setOnClickListener {
-
+            takePhoto()
         }
+    }
+
+    private fun takePhoto() {
+        val imageCapture = imageCapture ?: return
+        val photoFile = applicationContext.createInternalDirectory()
+
+        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+
+        imageCapture.takePicture(
+            outputOptions,
+            ContextCompat.getMainExecutor(this),
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                    val msg = getString(
+                        R.string.msg_capture_success,
+                        outputFileResults.savedUri
+                    )
+                    Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+                    requestViewPhoto(outputFileResults.savedUri?.path)
+                    Log.d(TAG, msg)
+                }
+
+                override fun onError(exception: ImageCaptureException) {
+                    val msg = getString(R.string.msg_capture_failed, exception.message)
+                    Toast.makeText(
+                        baseContext,
+                        msg,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.d(TAG, msg)
+                }
+            }
+        )
+    }
+
+    private fun requestViewPhoto(path: String?) {
+        if (path == null) return
+        val intent = Intent(this, ImageViewerActivity::class.java)
+        intent.putExtra(EXTRAS_IMAGE, path)
+        startActivity(intent)
     }
 
     override fun onRequestPermissionsResult(
@@ -141,6 +180,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     companion object {
         private const val TAG = "GCamera"
+        const val EXTRAS_IMAGE = "EXTRAS_IMAGE"
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRE_PERMISSIONS =
             mutableListOf(

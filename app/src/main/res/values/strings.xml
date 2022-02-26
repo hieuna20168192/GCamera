@@ -5,4 +5,6 @@
     <string name="title_prefix_shutter_speed">Shutter Speed</string>
     <string name="msg_err_no_camera_permissions">Permissions not granted by the user</string>
     <string name="msg_err_bind_use_cases">Use case binding failed</string>
+    <string name="msg_capture_success">Photo capture succeeded %1$s</string>
+    <string name="msg_capture_failed">Photo capture failed %1$s</string>
 </resources>
