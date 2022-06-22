@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="@color/color_white"
+        android:layout_height="match_parent"
+        tools:context=".otp.KycPhoneStep1Fragment">
+
+        <include
+            android:id="@+id/header"
+            layout="@layout/header_layout"/>
+
+        <com.ghtk.internal.base.gui.views.GTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="@dimen/default_margin_padding"
+            android:layout_marginEnd="@dimen/default_margin_padding"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/text_size_message"
+            android:layout_centerHorizontal="true"
+            app:font_text_view_base="medium"
+            android:text="Xác thực Số điện thoại thành công!"/>
+
+        <LinearLayout
+            android:layout_below="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Mặt trước"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_size_message" />
+
+                <ImageView
+                    android:id="@+id/imv_card_id_font"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="@dimen/default_margin_padding"
+                    android:layout_marginRight="@dimen/default_margin_padding"
+                    android:layout_marginBottom="@dimen/default_margin_padding"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/cmt_placeholder" />
+
+            </LinearLayout>
+
+            <View style="@style/LineVertical" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Mặt sau"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_size_message" />
+
+                <ImageView
+                    android:id="@+id/imv_card_id_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="@dimen/default_margin_padding"
+                    android:layout_marginRight="@dimen/default_margin_padding"
+                    android:layout_marginBottom="@dimen/default_margin_padding"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/cmt_placeholder" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.ghtk.internal.base.gui.views.GButton
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/button_green_radius_3dp"
+            android:text="Tiếp tục"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/default_margin_padding"
+            android:layout_marginStart="@dimen/default_margin_padding"
+            android:textAllCaps="false"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_size_message"
+            app:font_text="regular" />
+    </RelativeLayout>
+</layout>

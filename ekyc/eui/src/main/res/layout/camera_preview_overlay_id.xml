@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:id="@+id/static_overlay_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/object_confirmed_bg_gradient_end"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/bottom_prompt_chip"
+            style="@style/Widget.MaterialComponents.Chip.Entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/bottom_prompt_chip_margin_bottom"
+            android:layout_gravity="top|center_horizontal"
+            android:checkable="false"
+            android:clickable="false"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/bottom_prompt_chip_text_size"
+            android:visibility="visible"
+            app:chipCornerRadius="@dimen/bottom_prompt_chip_corner_radius"
+            app:chipSurfaceColor="@color/dark"
+            app:closeIconVisible="false"
+            android:text="Chụp ảnh CMND/CCCD"
+            android:layout_marginTop="32dp"/>
+
+        <com.otaliastudios.cameraview.CameraView
+            android:id="@+id/camera_view"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:keepScreenOn="true"
+            app:cameraAudio="off"
+            app:cameraExperimental="true"
+            app:cameraFacing="back"
+            app:cameraFlash="auto"
+            app:cameraGestureLongTap="none"
+            app:cameraGesturePinch="zoom"
+            app:cameraGestureScrollHorizontal="filterControl1"
+            app:cameraGestureScrollVertical="exposureCorrection"
+            app:cameraGestureTap="autoFocus"
+            app:cameraGrid="off"
+            app:cameraMode="picture"
+            app:cameraPictureSizeBiggest="true"
+            app:cameraPlaySounds="true"
+            app:cameraPictureSizeMaxWidth="@integer/size_width"
+            app:cameraPictureSizeMinWidth="@integer/size_width"
+            app:cameraPictureSizeMaxHeight="@integer/size_height"
+            app:cameraPictureSizeMinHeight="@integer/size_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="100dp"
+            android:background="@color/transparent"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_crop_view"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="100dp"
+            android:background="@color/transparent">
+
+            <!-- Top horizzontal lines -->
+            <View
+                android:id="@+id/view_1"
+                android:layout_width="30dp"
+                android:layout_height="3dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@color/colorPrimary" />
+
+            <View
+                android:id="@+id/view_2"
+                android:layout_width="30dp"
+                android:layout_height="3dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:background="@color/colorPrimary" />
+
+            <!-- Top vertical lines -->
+            <View
+                android:id="@+id/view_3"
+                android:layout_width="3dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@color/colorPrimary" />
+
+            <View
+                android:id="@+id/view_4"
+                android:layout_width="3dp"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:background="@color/colorPrimary" />
+
+            <!-- Bottom horizzontal lines -->
+            <View
+                android:id="@+id/view_5"
+                android:layout_width="30dp"
+                android:layout_height="3dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorPrimary" />
+
+            <View
+                android:id="@+id/view_6"
+                android:layout_width="30dp"
+                android:layout_height="3dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorPrimary" />
+
+            <!-- Bottom vertical lines -->
+            <View
+                android:id="@+id/view_7"
+                android:layout_width="3dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorPrimary" />
+
+            <View
+                android:id="@+id/view_8"
+                android:layout_width="3dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorPrimary" />
+        </RelativeLayout>
+
+        <com.ghtk.internal.base.gui.views.GTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="100dp"
+            android:paddingHorizontal="8dp"
+            android:text="Lưu ý: \n
+- Giấy tờ còn hạn sử dụng, không sử dụng bản scan, photocopy \n
+- Ảnh chụp cần rõ nét, đầy đủ thông tin, không bị mất góc, không bị chói sáng \n
+- Ảnh chụp CMND/CCCD đảm bảo chính chủ, không giả mạo"
+            android:textColor="@color/color_white"
+            tools:ignore="HardcodedText"
+            android:textSize="15sp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:paddingBottom="16dp"
+            android:paddingTop="8dp">
+
+            <ImageView
+                android:id="@+id/takePhoto"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_iphone_2"
+                android:visibility="visible"
+                tools:visibility="visible" />
+
+        </FrameLayout>
+
+    </FrameLayout>
+
+</merge>

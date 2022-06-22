@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".card.step.KycIdentityCardStep1Fragment"
+    tools:ignore="HardcodedText, ContentDescription">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/ll_header"
+            layout="@layout/header_layout_identity_card" />
+
+        <com.ghtk.internal.base.gui.views.GTextView
+            android:id="@+id/txt_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_header"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/default_margin_padding"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/default_margin_padding"
+            android:text="Vui lòng tải lên ảnh chụp căn cước công dân của bạn. Hướng dẫn"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/text_size_normal" />
+
+        <com.ghtk.internal.base.gui.views.GTextView
+            android:id="@+id/tv_title_identity_card_before"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_title"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:text="Mặt trước CMND/CCCD"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/text_size_normal" />
+
+        <RelativeLayout
+            android:id="@+id/rl_upload_identity_card_before"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title_identity_card_before"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/fl_camera_previous"
+                android:layout_width="200dp"
+                android:layout_height="110dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="8dp">
+
+                <FrameLayout
+                    android:id="@+id/ll_open_camera_previous"
+                    android:layout_width="200dp"
+                    android:layout_height="110dp"
+                    android:background="@drawable/frame_image_green">
+
+                    <ImageView
+                        android:id="@+id/iv_image_id_previous"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY" />
+
+                    <ImageView
+                        android:id="@+id/iv_icon_camera_id_previous"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="25dp"
+                        android:src="@drawable/ic_camera_border_green" />
+
+                </FrameLayout>
+
+                <ImageView
+                    android:id="@+id/iv_icon_camera_id_gray_previous"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="-2.5dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_camera_overlay"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/iv_people_id_previous_real"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:layout_alignBottom="@id/fl_camera_previous"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="4dp"
+                android:layout_toEndOf="@id/fl_camera_previous"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_before" />
+
+        </RelativeLayout>
+
+        <com.ghtk.internal.base.gui.views.GTextView
+            android:id="@+id/tv_title_identity_card_after"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_upload_identity_card_before"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:text="Mặt sau CMND/CCCD"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/text_size_normal" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title_identity_card_after"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/ll_open_camera_behind"
+                android:layout_width="200dp"
+                android:layout_height="110dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="8dp">
+
+                <FrameLayout
+                    android:layout_width="200dp"
+                    android:layout_height="110dp"
+                    android:background="@drawable/frame_image_green">
+
+                    <ImageView
+                        android:id="@+id/iv_image_id_behind"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        tools:src="@tools:sample/backgrounds/scenic[14]" />
+
+                    <ImageView
+                        android:id="@+id/iv_icon_camera_id_behind"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="25dp"
+                        android:src="@drawable/ic_camera_border_green"
+                        tools:visibility="gone" />
+
+                </FrameLayout>
+
+                <ImageView
+                    android:id="@+id/iv_icon_camera_id_gray_behind"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="-2.5dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_camera_overlay"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+            </FrameLayout>
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:layout_alignBottom="@id/ll_open_camera_behind"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="4dp"
+                android:layout_toEndOf="@id/ll_open_camera_behind"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_after" />
+
+        </RelativeLayout>
+
+        <com.ghtk.internal.base.gui.views.GTextView
+            android:id="@+id/tv_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btn_confirm"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            tools:text="Mặt sau của căn cước công dân"
+            android:textColor="@color/ios_red"
+            android:textSize="@dimen/text_size_normal"
+            app:font_text_view_base="italic" />
+
+        <com.ghtk.internal.base.gui.views.GButton
+            android:id="@+id/btn_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/default_margin_padding"
+            android:layout_marginStart="@dimen/default_margin_padding"
+            android:background="@drawable/button_green_radius_3dp"
+            android:text="Xác nhận"
+            android:textAllCaps="false"
+            android:textColor="@color/color_white"
+            android:textSize="17sp"
+            app:font_text="regular" />
+
+    </RelativeLayout>
+
+</layout>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_white"
+        android:orientation="vertical"
+        tools:context=".otp.KycPhoneStep1Fragment"
+        tools:ignore="HardcodedText, ContentDescription">
+
+        <include
+            android:id="@+id/header"
+            layout="@layout/header_layout_identity_card" />
+
+        <ImageView
+            android:id="@+id/imv_done"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_below="@+id/header"
+            android:src="@drawable/ic_check_circle_vector"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"/>
+
+        <com.ghtk.internal.base.gui.views.GTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imv_done"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/default_margin_padding"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="@dimen/default_margin_padding"
+            android:text="Xác thực khuôn mặt thành công!"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/text_size_normal"
+            app:font_text_view_base="bold" />
+
+        <com.ghtk.internal.base.gui.views.GButton
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/default_margin_padding"
+            android:layout_marginStart="@dimen/default_margin_padding"
+            android:background="@drawable/button_green_radius_3dp"
+            android:text="Xong"
+            android:textAllCaps="false"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_size_message"
+            app:font_text="regular" />
+
+    </RelativeLayout>
+
+</layout>

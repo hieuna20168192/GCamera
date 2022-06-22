@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="OtpEditText">
+        <attr name="oev_length" format="integer|reference"/>
+        <attr name="oev_primary_color" format="color|reference" />
+        <attr name="oev_secondary_color" format="color|reference" />
+        <attr name="oev_error_color" format="color|reference" />
+        <attr name="oev_text_color" format="color|reference" />
+
+        <attr name="oev_box_style" format="string|reference" />
+
+        <attr name="oev_mask_input" format="boolean" />
+        <attr name="oev_mask_character" format="string|reference" />
+
+    </declare-styleable>
+
+    <declare-styleable name="CircleProgressBar">
+        <attr name="progress" format="integer" />
+        <attr name="progress_color" format="color" />
+        <attr name="bar_color" format="color" />
+        <attr name="progress_width" format="dimension" />
+        <attr name="bar_width" format="dimension" />
+        <attr name="text_color" format="color" />
+        <attr name="text_size" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="PreviewView">
+        <attr name="isRound" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundedImageView">
+        <attr name="riv_corner_radius" format="dimension" />
+        <attr name="riv_corner_radius_top_left" format="dimension" />
+        <attr name="riv_corner_radius_top_right" format="dimension" />
+        <attr name="riv_corner_radius_bottom_left" format="dimension" />
+        <attr name="riv_corner_radius_bottom_right" format="dimension" />
+        <attr name="riv_border_width" format="dimension" />
+        <attr name="riv_border_color" format="color" />
+        <attr name="riv_mutate_background" format="boolean" />
+        <attr name="riv_oval" format="boolean" />
+        <attr name="android:scaleType" />
+        <attr name="riv_tile_mode">
+            <enum name="clamp" value="0" />
+            <enum name="repeat" value="1" />
+            <enum name="mirror" value="2" />
+        </attr>
+        <attr name="riv_tile_mode_x">
+            <enum name="clamp" value="0" />
+            <enum name="repeat" value="1" />
+            <enum name="mirror" value="2" />
+        </attr>
+        <attr name="riv_tile_mode_y">
+            <enum name="clamp" value="0" />
+            <enum name="repeat" value="1" />
+            <enum name="mirror" value="2" />
+        </attr>
+    </declare-styleable>
+
+
+</resources>

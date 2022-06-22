@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="@color/color_white"
+        android:layout_height="match_parent"
+        tools:context=".otp.KycPhoneStep1Fragment">
+
+       <include
+           android:id="@+id/header"
+           layout="@layout/header_layout"/>
+        <com.ghtk.internal.base.gui.views.GTextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imv_logo"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="@dimen/default_margin_padding"
+            android:layout_marginEnd="@dimen/default_margin_padding"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/text_size_message"
+            android:layout_centerHorizontal="true"
+            android:text="Vui lòng nhập số điện thoại"/>
+        <LinearLayout
+            android:id="@+id/ln_input_code"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/default_margin_padding"
+            android:layout_marginEnd="@dimen/default_margin_padding"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <com.ghtk.internal.base.gui.views.GEditText
+                android:id="@+id/edt_username"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_edittext_white_with_bolder"
+                android:hint="Tên đăng nhập"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:includeFontPadding="false"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:paddingLeft="8dp"
+                android:paddingRight="5dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_message"
+                app:font_text_view_base="regular" />
+            <com.ghtk.internal.base.gui.views.GButton
+                android:id="@+id/btn_verify"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button_green_radius_3dp"
+                android:text="Gửi"
+                android:layout_marginStart="@dimen/default_margin_padding"
+                android:textAllCaps="false"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_size_message"
+                app:font_text="regular" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

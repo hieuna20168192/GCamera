@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -29,4 +30,18 @@ fun Context.createInternalDirectory(): File {
         .format(System.currentTimeMillis())
 
     return File(directory, fileName)
+}
+
+fun Context.saveImage(original: Bitmap): File? {
+    return try {
+        val file = createInternalDirectory()
+        val fOut = FileOutputStream(file)
+        original.compress(Bitmap.CompressFormat.JPEG, 95, fOut)
+        fOut.flush()
+        fOut.close()
+        file
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
 }

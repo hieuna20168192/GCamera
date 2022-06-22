@@ -4,6 +4,27 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/ekyc/eui" name="eui">
+                <projects>
+                  <project path="$PROJECT_DIR$/ekyc/eui" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/detection" name="detection">
+                <projects>
+                  <project path="$PROJECT_DIR$/detection" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/ekyc/sdk" name="sdk">
+                <projects>
+                  <project path="$PROJECT_DIR$/ekyc/sdk" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -11,9 +32,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/detection" />
+            <option value="$PROJECT_DIR$/ekyc/eui" />
+            <option value="$PROJECT_DIR$/ekyc/sdk" />
           </set>
         </option>
-        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_white"
+        android:orientation="vertical"
+        tools:ignore="HardcodedText">
+
+        <com.ghtk.internal.base.gui.views.GTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Hướng dẫn"
+            android:textColor="@color/color_black"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            app:font_text_view_base="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginHorizontal="16dp"
+                android:src="@drawable/ic_check_color_accent_24dp" />
+
+            <com.ghtk.internal.base.gui.views.GTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="Chỉ sử dụng CMT/CCCD/CCCD gắn chip để xác thực"
+                android:textColor="@color/color_black"
+                android:textSize="16sp"
+                app:font_text_view_base="regular" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginHorizontal="16dp"
+                android:src="@drawable/ic_check_color_accent_24dp" />
+
+            <com.ghtk.internal.base.gui.views.GTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="Đặt CMT/CCCD nằm trọn vẹn trong khung hình chụp ảnh"
+                android:textColor="@color/color_black"
+                android:textSize="16sp"
+                app:font_text_view_base="regular" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginHorizontal="16dp"
+                android:padding="3dp"
+                android:src="@drawable/ic_close_order" />
+
+            <com.ghtk.internal.base.gui.views.GTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="Không chụp giấy tờ bị mất góc, quăn mép, bị lóa, nhòe chữ"
+                android:textColor="@color/color_black"
+                android:textSize="16sp"
+                app:font_text_view_base="regular" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginHorizontal="16dp"
+                android:padding="3dp"
+                android:src="@drawable/ic_close_order" />
+
+            <com.ghtk.internal.base.gui.views.GTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="Không sử dụng giấy tờ giả mạo, không chính chủ"
+                android:textColor="@color/color_black"
+                android:textSize="16sp"
+                app:font_text_view_base="regular" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginHorizontal="16dp"
+                android:padding="3dp"
+                android:src="@drawable/ic_close_order" />
+
+            <com.ghtk.internal.base.gui.views.GTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="Không sử dụng bản photocopy từ ảnh chụp hoặc loại sao chép khác"
+                android:textColor="@color/color_black"
+                android:textSize="16sp"
+                app:font_text_view_base="regular" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_dark_grey" />
+
+        <com.ghtk.internal.base.gui.views.GTextView
+            android:id="@+id/tv_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="8dp"
+            android:text="OK"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:font_text_view_base="bold" />
+
+    </LinearLayout>
+</layout>

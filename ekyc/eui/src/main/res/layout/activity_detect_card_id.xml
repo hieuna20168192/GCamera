@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".card.camera.CameraDetectCardActivity"
+    android:background="@color/object_confirmed_bg_gradient_end">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/camera_preview_overlay_id"/>
+
+    </FrameLayout>
+
+    <include
+        layout="@layout/top_action_bar_in_live_camera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"/>
+
+    <com.ghtk.internal.ekyc.ui.views.roundimageview.RoundedImageView
+        android:id="@+id/iv_image_id"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        tools:src="@tools:sample/avatars"
+        android:scaleType="fitXY"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="100dp"
+        android:layout_marginStart="16dp"
+        app:riv_corner_radius="5dp"
+        android:adjustViewBounds="true"
+        app:riv_border_color="@color/color_white"
+        app:riv_border_width="2dp"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <include
+        android:id="@+id/bottom_sheet"
+        layout="@layout/layout_action_bottom_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:behavior_hideable="true"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

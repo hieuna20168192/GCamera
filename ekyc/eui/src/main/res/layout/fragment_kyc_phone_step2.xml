@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="@color/color_white"
+        android:layout_height="match_parent"
+        tools:context=".otp.KycPhoneStep1Fragment">
+
+        <include
+            android:id="@+id/header"
+            layout="@layout/header_layout"/>
+        <com.ghtk.internal.base.gui.views.GTextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imv_logo"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="@dimen/default_margin_padding"
+            android:layout_marginEnd="@dimen/default_margin_padding"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/text_size_message"
+            android:layout_centerHorizontal="true"
+            android:text="@string/kyc_step_2_des"/>
+
+
+            <com.ghtk.internal.ekyc.ui.views.OtpEditText
+                android:id="@+id/otp_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:digits="0123456789"
+                android:inputType="number"
+                android:layout_margin="50dp"
+                android:maxLength="6"
+                android:padding="8dp"
+                android:textSize="30sp"
+                app:oev_primary_color="@color/colorPrimary"
+                app:oev_secondary_color="@color/gray_text_ios"
+                />
+
+    </LinearLayout>
+</layout>

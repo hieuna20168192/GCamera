@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:background="@color/color_black"
+        >
+
+        <androidx.camera.view.PreviewView
+            android:id="@+id/preview_view"
+            android:layout_width="match_parent"
+            android:layout_alignParentTop="true"
+            app:scaleType="fillCenter"
+            android:layout_above="@+id/view_end"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:id="@+id/top_preview"
+            android:layout_width="match_parent"
+            android:layout_alignParentStart="true"
+            android:background="#DF000000"
+            android:layout_height="50dp"/>
+        <RelativeLayout
+            android:id="@+id/rela_face"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/top_preview"
+            android:layout_height="wrap_content">
+            <com.ghtk.internal.ekyc.ui.views.progressviews.CircleSegmentBar
+                android:id="@+id/face_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_width="10dp"
+                android:layout_centerHorizontal="true"
+                app:progress_color="@color/colorPrimary"
+                app:progress_width="10dp" />
+            <com.ghtk.internal.base.gui.views.GTextView
+                android:id="@+id/tv_waring"
+                android:textSize="@dimen/text_size_message"
+                android:textColor="@color/color_white"
+                android:background="@drawable/bg_round_waring_face_camera"
+                android:layout_width="wrap_content"
+                android:padding="@dimen/default_margin_padding"
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:maxWidth="300dp"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_below="@+id/rela_face"
+            android:background="#DF000000"
+            android:layout_height="match_parent"/>
+
+        <com.ghtk.internal.base.gui.views.GTextView
+            android:id="@+id/txt_warning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="40dp"
+            android:textAllCaps="false"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_size_message"
+            app:font_text="regular" />
+        <RelativeLayout
+            android:id="@+id/rela_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp">
+
+            <com.ghtk.internal.base.gui.views.GImageButton
+                android:id="@+id/btn_back_header"
+                android:layout_width="@dimen/default_icon_size"
+                android:layout_height="@dimen/default_icon_size"
+                android:background="@android:color/transparent"
+                android:padding="2dp"
+                android:src="@drawable/ic_white_back" />
+
+            <com.ghtk.internal.base.gui.views.GTextView
+                android:id="@+id/txt_title_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                tools:text="Xác thực số điện thoại"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_size_title"
+                app:font_text_view_base="bold" />
+        </RelativeLayout>
+        <com.ghtk.internal.base.gui.views.GTextView
+            android:id="@+id/txt_action_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rela_face"
+            tools:text="Quay sang trai"
+            android:layout_marginStart="@dimen/default_margin_padding"
+            android:layout_marginEnd="@dimen/default_margin_padding"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_size_title"
+            android:layout_centerHorizontal="true"
+            app:font_text_view_base="medium"/>
+        <RelativeLayout
+            android:id="@+id/rela_icon"
+            android:orientation="horizontal"
+            android:layout_width="250dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/default_margin_padding"
+            android:layout_below="@+id/txt_action_des"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imv_action_left"
+                android:layout_width="50dp"
+                android:layout_centerVertical="true"
+                android:visibility="invisible"
+                android:src="@drawable/ic_action_left"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/imv_action_right"
+                android:layout_width="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:visibility="invisible"
+                android:src="@drawable/ic_action_right"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/imv_action_face"
+                android:layout_width="40dp"
+                android:layout_centerHorizontal="true"
+                android:visibility="invisible"
+                android:src="@drawable/ic_face_nomal"
+                android:layout_height="40dp"/>
+
+        </RelativeLayout>
+        <View
+            android:id="@+id/view_end"
+            android:layout_below="@+id/rela_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
+</layout>
