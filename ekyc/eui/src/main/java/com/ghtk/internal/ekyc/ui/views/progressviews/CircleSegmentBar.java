@@ -38,7 +38,7 @@ public class CircleSegmentBar extends ProgressView {
 
     private Path progressPath;
     private Path backgroundPath;
-    final RectF oval = new RectF();
+    public final RectF oval = new RectF();
 
     private float radius;
     private float angle;
@@ -108,6 +108,7 @@ public class CircleSegmentBar extends ProgressView {
         mPath.reset();
         mPath.addCircle(canvas.getWidth() / 2, canvas.getHeight() / 2, oval.width()/2 - 30, Path.Direction.CW);
         mPath.setFillType(Path.FillType.INVERSE_EVEN_ODD);
+
         canvas.drawCircle(canvas.getWidth() / 2, canvas.getHeight() / 2, oval.width()/2 - 30, mTransparentPaint);
         canvas.drawPath(mPath, mSemiBlackPaint);
         canvas.clipPath(mPath);

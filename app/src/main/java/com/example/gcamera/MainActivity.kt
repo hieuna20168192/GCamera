@@ -4,24 +4,18 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.ImageFormat
-import android.graphics.Rect
+import android.graphics.Matrix
 import android.graphics.RectF
-import android.graphics.YuvImage
-import android.media.Image
 import android.os.Build
-import android.os.Handler
 import android.util.Log
 import android.util.Rational
 import android.view.Surface
-import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.os.ExecutorCompat
 import com.example.gcamera.actions.ApertureSlideAction
 import com.example.gcamera.actions.IsoSlideAction
 import com.example.gcamera.actions.ShutterSpeedSlideAction
@@ -29,16 +23,19 @@ import com.example.gcamera.actions.EVProducer
 import com.example.gcamera.base.BaseActivity
 import com.example.gcamera.databinding.ActivityMainBinding
 import com.example.gcamera.extensions.createInternalDirectory
-import org.tensorflow.lite.support.image.ImageProcessor
-import org.tensorflow.lite.support.image.TensorImage
-import org.tensorflow.lite.support.image.ops.ResizeOp
-import org.tensorflow.lite.support.image.ops.ResizeWithCropOrPadOp
-import org.tensorflow.lite.task.vision.detector.ObjectDetector
-import java.io.ByteArrayOutputStream
+import com.google.firebase.ml.modeldownloader.CustomModel
+import com.google.firebase.ml.modeldownloader.CustomModelDownloadConditions
+import com.google.firebase.ml.modeldownloader.DownloadType
+import com.google.firebase.ml.modeldownloader.FirebaseModelDownloader
+import java.io.File
 import java.lang.Exception
 import java.util.concurrent.Executors
+import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.roundToInt
 
+@RequiresApi(Build.VERSION_CODES.R)
 @SuppressLint("VisibleForTests")
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -46,15 +43,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private var imageCapture: ImageCapture? = null
     private var camera: Camera? = null
 
-    private lateinit var bitmapBuffer: Bitmap
-    private var imageRotationDegrees: Int = 0
-
     private val evProducer: EVProducer = EVProducer { ev ->
         camera?.cameraControl?.setExposureCompensationIndex(ev)
         Log.d("EVProducer", "$ev")
     }
 
     override fun initComponents() {
+        downloadModel("face_mask_model")
         applyCameraPlugin()
 //        binding.viewCrop.post {
 //            Log.d("viewCrop.x", "${binding.viewCrop.x}")
@@ -62,6 +57,39 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //            Log.d("viewCrop.w", "${binding.viewCrop.width}")
 //            Log.d("viewCrop.h", "${binding.viewCrop.height}")
 //        }
+    }
+
+    private fun downloadModel(modelName: String) {
+        val conditions = CustomModelDownloadConditions.Builder()
+            .requireWifi()
+            .build()
+        FirebaseModelDownloader.getInstance()
+            .getModel(modelName, DownloadType.LOCAL_MODEL_UPDATE_IN_BACKGROUND, conditions)
+            .addOnSuccessListener { model: CustomModel? ->
+                val modelFile = model?.file
+                initDetectProcessor(modelFile)
+            }
+    }
+
+    private fun initDetectProcessor(modelFile: File?) {
+        if (preCondition(modelFile)) {
+
+        }
+    }
+
+    private fun preCondition(modelFile: File?): Boolean {
+        if (modelFile == null) {
+            showToast("Failed to initialize model file: $modelFile")
+        }
+        return modelFile != null
+    }
+
+    private fun showToast(text: String) {
+        Toast.makeText(
+            this,
+            text,
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     private fun applyCameraPlugin() {
@@ -79,6 +107,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         cameraProviderFuture.addListener({
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
 
+            val metrics = windowManager.currentWindowMetrics.bounds
+            val screenAspectRatio = aspectRatio(metrics.width(), metrics.height())
+
             val preview = Preview.Builder()
                 .build()
                 .also {
@@ -87,9 +118,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
             imageCapture = ImageCapture.Builder().build()
 
-            val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
+            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
-//            val viewPort = ViewPort.Builder(Rational(86, 51), Surface.ROTATION_0).build()
+            val viewPort = ViewPort.Builder(Rational(51, 86), Surface.ROTATION_0).build()
 
             val imageAnalyzer = ImageAnalysis.Builder()
                 .build()
@@ -103,7 +134,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 .addUseCase(preview)
                 .addUseCase(imageCapture!!)
                 .addUseCase(imageAnalyzer)
-//                .setViewPort(viewPort)
+                .setViewPort(viewPort)
                 .build()
 
             try {
@@ -113,9 +144,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 cameraProvider.bindToLifecycle(
                     this,
                     cameraSelector,
-                    preview,
-                    imageCapture,
-                    imageAnalyzer
+                    useCaseGroup
                 )
 
                 // Bind use cases to camera
@@ -134,32 +163,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     @SuppressLint("UnsafeOptInUsageError")
     private fun detectImage(imageProxy: ImageProxy) {
-        Log.d("detectGlassAndMask", imageProxy.toString())
-        val tensorImage: TensorImage = fromImageProxy(imageProxy)
+        val bitmap = toBitmap(imageProxy)!!
 
-        val options = ObjectDetector.ObjectDetectorOptions.builder()
-            .setMaxResults(5)
-            .setScoreThreshold(0.3f)
-            .build()
-
-        val detector = ObjectDetector.createFromFileAndOptions(
-            this,
-            "face_mask_model.tflite",
-            options
-        )
-
-        val results = detector.detect(tensorImage)
-
-        val resultToDisplay = results.map {
-            val category = it.categories.first()
-            val text = "${category.label}, ${category.score.times(100).toInt()}"
-            Log.d("resultToDisplay", "$text")
-        }
+//        val result = facialEngine.detect(bitmap)
+//        Log.d("detectImage", result.toString())
         imageProxy.close()
-    }
-
-    private fun fromImageProxy(imageProxy: ImageProxy): TensorImage {
-        return
     }
 
     private fun allPermissionsGranted() = REQUIRE_PERMISSIONS.all {
@@ -221,7 +229,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                         R.string.msg_capture_success,
                         outputFileResults.savedUri
                     )
-//                    Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
                     requestViewPhoto(outputFileResults.savedUri?.path)
                     Log.d(TAG, msg)
                 }
@@ -267,6 +275,46 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
     }
 
+    @SuppressLint("UnsafeExperimentalUsageError", "UnsafeOptInUsageError")
+    private fun toBitmap(imageProxy: ImageProxy): Bitmap? {
+        val yuvToRgbConverter = YuvToRgbConverter(this)
+        var bitmapBuffer: Bitmap
+        var rotationMatrix: Matrix
+
+        val image = imageProxy.image ?: return null
+
+        // Initialise Buffer
+        // The image rotation and RGB image buffer are initialized only once
+        Log.d(TAG, "Initalise toBitmap()")
+        rotationMatrix = Matrix()
+        rotationMatrix.postRotate(imageProxy.imageInfo.rotationDegrees.toFloat())
+        bitmapBuffer = Bitmap.createBitmap(
+            imageProxy.width, imageProxy.height, Bitmap.Config.ARGB_8888
+        )
+
+        // Pass image to an image analyser
+        yuvToRgbConverter.yuvToRgb(image, bitmapBuffer)
+
+        // Create the Bitmap in the correct orientation
+        return Bitmap.createBitmap(
+            bitmapBuffer,
+            0,
+            0,
+            bitmapBuffer.width,
+            bitmapBuffer.height,
+            rotationMatrix,
+            false
+        )
+    }
+
+    private fun aspectRatio(width: Int, height: Int): Int {
+        val previewRatio = max(width, height).toDouble() / min(width, height)
+        if (abs(previewRatio - RATIO_4_3_VALUE) <= abs(previewRatio - RATIO_16_9_VALUE)) {
+            return AspectRatio.RATIO_4_3
+        }
+        return AspectRatio.RATIO_16_9
+    }
+
     companion object {
         private const val TAG = "GCamera"
         const val EXTRAS_IMAGE = "EXTRAS_IMAGE"
@@ -280,6 +328,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 }
             }.toTypedArray()
+
+        private const val RATIO_4_3_VALUE = 4.0 / 3.0
+        private const val RATIO_16_9_VALUE = 16.0 / 9.0
     }
 }
 

@@ -3,10 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Backup projects/GCamera/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2765" />
+        <entry key="..\:/Backup projects/GCamera/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.2765" />
+        <entry key="..\:/Backup projects/GCamera/app/src/main/res/drawable/ic_baseline_camera_alt_24.xml" value="0.2765" />
+        <entry key="..\:/Backup projects/GCamera/app/src/main/res/drawable/ic_bg_crop_rect.xml" value="0.2765" />
+        <entry key="..\:/Backup projects/GCamera/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2765" />
         <entry key="..\:/Backup projects/GCamera/app/src/main/res/layout/activity_image_crop_result.xml" value="0.26666666666666666" />
+        <entry key="..\:/Backup projects/GCamera/app/src/main/res/layout/activity_image_viewer.xml" value="0.36666666666666664" />
         <entry key="..\:/Backup projects/GCamera/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Backup projects/GCamera/app/src/main/res/layout/layout_container_compenstating.xml" value="0.36666666666666664" />
         <entry key="..\:/Backup projects/GCamera/ekyc/eui/src/main/res/layout/activity_e_kyc.xml" value="0.19635416666666666" />
         <entry key="..\:/Backup projects/GCamera/ekyc/eui/src/main/res/layout/fragment_kyc_face_step1.xml" value="0.25416666666666665" />
+        <entry key="..\:/Backup projects/GCamera/ekyc/eui/src/main/res/layout/fragment_kyc_face_step2.xml" value="0.24375" />
+        <entry key="..\:/Backup projects/GCamera/ekyc/eui/src/main/res/layout/fragment_kyc_face_step3.xml" value="0.24375" />
+        <entry key="..\:/Backup projects/GCamera/ekyc/eui/src/main/res/layout/fragment_kyc_identity_card_step1.xml" value="0.2838541666666667" />
         <entry key="..\:/Users/Admin/StudioProjects/GCamera/app/src/main/res/drawable/ic_bg_crop_rect.xml" value="0.24351851851851852" />
         <entry key="..\:/Users/Admin/StudioProjects/GCamera/app/src/main/res/layout/activity_image_viewer.xml" value="0.15572916666666667" />
         <entry key="..\:/Users/Admin/StudioProjects/GCamera/app/src/main/res/layout/activity_main.xml" value="0.2" />

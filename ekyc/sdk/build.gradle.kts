@@ -28,4 +28,5 @@ dependencies {
     implementation(libs.mlkitFaceDetection)
     implementation(libs.mlkitCamera)
     implementation(libs.moshi)
+    implementation ("com.ghtk.internal:detection:0.0.1")
 }

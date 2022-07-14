@@ -66,7 +66,7 @@ public final class FileUtils {
 
             Matrix matrix = new Matrix();
             matrix.setRotate(rotationAngle, (float) bitmap.getWidth(), (float) bitmap.getHeight());
-            Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight());
 
             FileOutputStream fOut = new FileOutputStream(photoResize);
             getResizedBitmap(rotatedBitmap, 800).compress(Bitmap.CompressFormat.JPEG, 90, fOut);

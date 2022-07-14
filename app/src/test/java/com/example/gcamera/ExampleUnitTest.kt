@@ -12,6 +12,15 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+        val data = arrayListOf<Int>()
+        data.add(0x8A)
+        data.add(0x01)
+        data.add(0x01)
+        data.add(0x9B)
+
+        val str = "0x8A"
+        val newByte = str.toByte()
+
+        assertNotNull(newByte)
     }
 }

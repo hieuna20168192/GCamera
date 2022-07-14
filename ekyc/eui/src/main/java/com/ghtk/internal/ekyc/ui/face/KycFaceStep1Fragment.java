@@ -29,7 +29,6 @@ import com.ghtk.internal.ekyc.ui.R;
 import com.ghtk.internal.ekyc.ui.card.step.KycCardStep1Fragment;
 import com.ghtk.internal.ekyc.ui.databinding.FragmentKycFaceStep1Binding;
 import com.ghtk.internal.utils.callbacks.OnSingleClickListener;
-import com.ghtk.internal.base.preference.GHTKSharePreferences;
 
 import static com.ghtk.internal.ekyc.sdk.face.FaceKycProcessor.CLOSE_LEFT_EYE;
 import static com.ghtk.internal.ekyc.sdk.face.FaceKycProcessor.CLOSE_RIGHT_EYE;
@@ -42,7 +41,6 @@ import static com.ghtk.internal.ekyc.sdk.face.FaceKycProcessor.SMILE;
 import static com.ghtk.internal.ekyc.sdk.face.FaceKycProcessor.SPLIT_ACTION;
 import static com.ghtk.internal.ekyc.ui.face.KycFaceStep2Fragment.KEY_IMAGE_DONE;
 import static com.ghtk.internal.ekyc.ui.otp.KycPhoneStep1Fragment.KEY_EKYC_ID;
-import static com.ghtk.internal.ekyc.ui.otp.KycPhoneStep1Fragment.KEY_EKYC_ID_STEPS;
 import static com.ghtk.internal.ekyc.ui.otp.KycPhoneStep1Fragment.KEY_PHONE;
 
 public class KycFaceStep1Fragment extends BaseFragment<BaseViewModel, FragmentKycFaceStep1Binding> {
@@ -85,6 +83,7 @@ public class KycFaceStep1Fragment extends BaseFragment<BaseViewModel, FragmentKy
         }
 
         faceKycApi = new FaceKycProcessor();
+
         binding.txtTitleHeader.setText("Xác thực khuôn mặt");
         binding.txtWarning.setText("Lưu ý:\n" +
                 "- Hình ảnh khuôn mặt rõ ràng, không nhắm mắt, không đeo kính hoặc bị che khuất\n" +
@@ -115,8 +114,8 @@ public class KycFaceStep1Fragment extends BaseFragment<BaseViewModel, FragmentKy
         if (faceKycApi == null) {
             return;
         }
-        faceKycApi.startFaceKyc(getActivity().getApplicationContext(), this, binding.previewView, binding.faceProgressBar, new OnFaceKycDetectListener() {
 
+        faceKycApi.startFaceKyc(getActivity().getApplicationContext(), this, binding.previewView, binding.faceProgressBar, binding.tvLabel, new OnFaceKycDetectListener() {
             @Override
             public void onFaceDetected(List<Face> faces) {
                 switch (faces.size()) {
@@ -208,7 +207,9 @@ public class KycFaceStep1Fragment extends BaseFragment<BaseViewModel, FragmentKy
                 binding.faceProgressBar.setProgress(progress);
                 LogUtils.d(progress + "- progress");
             }
+
             private LinkedHashMap<String, Bitmap> bitmapListMap = new LinkedHashMap<>();
+
             @Override
             public void onDetectCompleted(int action, Bitmap b1, String name) {
                 LogUtils.d(action + "- onDetectCompleted");

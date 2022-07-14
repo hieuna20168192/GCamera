@@ -14,7 +14,7 @@
         * limitations under the License.
         */
 
-        package com.ghtk.internal.ekyc.ui.views.roundimageview;
+package com.ghtk.internal.ekyc.ui.views.roundimageview;
 
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;

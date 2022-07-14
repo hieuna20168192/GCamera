@@ -8,5 +8,7 @@ dependencies {
     androidTestImplementation(libs.bundles.androidTest)
 
     // TFLite
-    api("org.tensorflow:tensorflow-lite-task-vision:0.3.1")
+    implementation("org.tensorflow:tensorflow-lite-task-vision:0.3.1")
+
+//    implementation("com.google.mlkit:image-labeling-custom:17.0.1")
 }
