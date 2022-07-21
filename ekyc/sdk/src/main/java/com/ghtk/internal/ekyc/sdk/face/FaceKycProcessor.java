@@ -162,7 +162,6 @@ public class FaceKycProcessor implements FaceKycApi {
         imageProcessor = new FaceDetectorProcessor(context, faceDetectorOptions, new FaceDetectorProcessor.OnFaceDetect() {
             @Override
             public void onFaceDetect(@NonNull List<Face> faces, Bitmap bitmapOrigin) {
-                onFaceKycDetectListener.onFaceDetected(faces);
                 if (faces.size() == 1) {
                     final Face face = faces.get(0);
 
@@ -181,8 +180,11 @@ public class FaceKycProcessor implements FaceKycApi {
                         Detection detection = facialEngine.detect(avatar);
                         if (detection != Detection.Companion.getEMPTY()) {
                             ((TextView) tvLabel).setText(detection.getCategory().getLabel());
-                        }
-                    }
+                            onFaceKycDetectListener.onFaceDetected(faces, !detection.getCategory().getNoWear());
+                        } else
+                            onFaceKycDetectListener.onFaceDetected(faces, false);
+                    } else
+                        onFaceKycDetectListener.onFaceDetected(faces, false);
 
                     LogUtils.d("Chinhnq" + "VIEW : " + " X : " + centerXView + " - Y : " + centerYView);
                     LogUtils.d("Chinhnq" + "FACE : " + " X : " + centerXF + " - Y : " + centerYF);
@@ -199,9 +201,8 @@ public class FaceKycProcessor implements FaceKycApi {
                                 rotY = face.getHeadEulerAngleY();
                                 smile = face.getSmilingProbability();
                                 if (Math.abs(rotY) < 3 && Math.abs(rotX) < 10 && smile < 0.15f) {
-                                    onFaceKycDetectListener.onUpdateProgress(doneStepProgress);
-                                    final Bitmap bitmap = previewView.getBitmap();
-                                    onFaceKycDetectListener.onDetectCompleted(currentAction, bitmap, "front_face");
+                                    detectFaceBeforeComplete(bitmapOrigin, face.getBoundingBox(), currentAction,
+                                            "front_face", onFaceKycDetectListener, doneStepProgress);
                                 }
                                 break;
                             case ROTATE_TO_LEFT:
@@ -211,13 +212,7 @@ public class FaceKycProcessor implements FaceKycApi {
                                     if (progress > currentProgress) currentProgress = progress;
                                     if (currentProgress >= doneStepProgress) {
                                         currentProgress = doneStepProgress;
-                                        actions.remove(Integer.valueOf(currentAction));
-                                        if (actions.size() > 0) {
-                                            currentAction = actions.get(0);
-                                        }
-                                        onFaceKycDetectListener.onUpdateProgress(currentProgress);
-                                        final Bitmap bitmap = previewView.getBitmap();
-                                        onFaceKycDetectListener.onDetectCompleted(currentAction, bitmap, "left_face");
+                                        detectFaceBeforeComplete(bitmapOrigin, face.getBoundingBox(), currentAction, "left_face", onFaceKycDetectListener, currentProgress);
                                     } else {
                                         onFaceKycDetectListener.onUpdateProgress(currentProgress);
                                     }
@@ -230,13 +225,7 @@ public class FaceKycProcessor implements FaceKycApi {
                                     if (progress > currentProgress) currentProgress = progress;
                                     if (currentProgress >= doneStepProgress) {
                                         currentProgress = doneStepProgress;
-                                        actions.remove(Integer.valueOf(currentAction));
-                                        if (actions.size() > 0) {
-                                            currentAction = actions.get(0);
-                                        }
-                                        onFaceKycDetectListener.onUpdateProgress(currentProgress);
-                                        final Bitmap bitmap = previewView.getBitmap();
-                                        onFaceKycDetectListener.onDetectCompleted(currentAction, bitmap, "right_face");
+                                        detectFaceBeforeComplete(bitmapOrigin, face.getBoundingBox(), currentAction, "right_face", onFaceKycDetectListener, currentProgress);
                                     } else {
                                         onFaceKycDetectListener.onUpdateProgress(currentProgress);
                                     }
@@ -249,13 +238,7 @@ public class FaceKycProcessor implements FaceKycApi {
                                     if (progress > currentProgress) currentProgress = progress;
                                     if (currentProgress >= doneStepProgress) {
                                         currentProgress = doneStepProgress;
-                                        actions.remove(Integer.valueOf(currentAction));
-                                        if (actions.size() > 0) {
-                                            currentAction = actions.get(0);
-                                        }
-                                        onFaceKycDetectListener.onUpdateProgress(currentProgress);
-                                        final Bitmap bitmap = previewView.getBitmap();
-                                        onFaceKycDetectListener.onDetectCompleted(currentAction, bitmap, "up_face");
+                                        detectFaceBeforeComplete(bitmapOrigin, face.getBoundingBox(), currentAction, "up_face", onFaceKycDetectListener, currentProgress);
                                     } else {
                                         onFaceKycDetectListener.onUpdateProgress(currentProgress);
                                     }
@@ -268,13 +251,7 @@ public class FaceKycProcessor implements FaceKycApi {
                                     if (progress > currentProgress) currentProgress = progress;
                                     if (currentProgress >= doneStepProgress) {
                                         currentProgress = doneStepProgress;
-                                        actions.remove(Integer.valueOf(currentAction));
-                                        if (actions.size() > 0) {
-                                            currentAction = actions.get(0);
-                                        }
-                                        onFaceKycDetectListener.onUpdateProgress(currentProgress);
-                                        final Bitmap bitmap = previewView.getBitmap();
-                                        onFaceKycDetectListener.onDetectCompleted(currentAction, bitmap, "down_face");
+                                        detectFaceBeforeComplete(bitmapOrigin, face.getBoundingBox(), currentAction, "down_face", onFaceKycDetectListener, currentProgress);
                                     } else {
                                         onFaceKycDetectListener.onUpdateProgress(currentProgress);
                                     }
@@ -292,13 +269,7 @@ public class FaceKycProcessor implements FaceKycApi {
                                 }
                                 if (closeLeftEye > 0 && closeLeftEye < 0.03f && closeRightEye > 0.8) {
                                     currentProgress = doneStepProgress;
-                                    actions.remove(Integer.valueOf(currentAction));
-                                    if (actions.size() > 0) {
-                                        currentAction = actions.get(0);
-                                    }
-                                    onFaceKycDetectListener.onUpdateProgress(currentProgress);
-                                    final Bitmap bitmap = previewView.getBitmap();
-                                    onFaceKycDetectListener.onDetectCompleted(currentAction, bitmap, "close_left_eye");
+                                    detectFaceBeforeComplete(bitmapOrigin, face.getBoundingBox(), currentAction, "close_left_eye", onFaceKycDetectListener, currentProgress);
                                 } else {
                                     onFaceKycDetectListener.onUpdateProgress(currentProgress);
                                 }
@@ -312,13 +283,7 @@ public class FaceKycProcessor implements FaceKycApi {
                                 }
                                 if (closeRightEye > 0 && closeRightEye < 0.03f && closeLeftEye > 0.8) {
                                     currentProgress = doneStepProgress;
-                                    actions.remove(Integer.valueOf(currentAction));
-                                    if (actions.size() > 0) {
-                                        currentAction = actions.get(0);
-                                    }
-                                    onFaceKycDetectListener.onUpdateProgress(currentProgress);
-                                    final Bitmap bitmap = previewView.getBitmap();
-                                    onFaceKycDetectListener.onDetectCompleted(currentAction, bitmap, "close_right_eye");
+                                    detectFaceBeforeComplete(bitmapOrigin, face.getBoundingBox(), currentAction, "close_right_eye", onFaceKycDetectListener, currentProgress);
                                 } else {
                                     onFaceKycDetectListener.onUpdateProgress(currentProgress);
                                 }
@@ -329,13 +294,7 @@ public class FaceKycProcessor implements FaceKycApi {
                                 if (progress > currentProgress) currentProgress = progress;
                                 if (smile >= 0.95f) {
                                     currentProgress = doneStepProgress;
-                                    actions.remove(Integer.valueOf(currentAction));
-                                    if (actions.size() > 0) {
-                                        currentAction = actions.get(0);
-                                    }
-                                    onFaceKycDetectListener.onUpdateProgress(currentProgress);
-                                    final Bitmap bitmap = previewView.getBitmap();
-                                    onFaceKycDetectListener.onDetectCompleted(currentAction, bitmap, "smile");
+                                    detectFaceBeforeComplete(bitmapOrigin, face.getBoundingBox(), currentAction, "smile", onFaceKycDetectListener, currentProgress);
                                 } else {
                                     onFaceKycDetectListener.onUpdateProgress(currentProgress);
                                 }
@@ -343,6 +302,7 @@ public class FaceKycProcessor implements FaceKycApi {
                         }
                     }
                 } else {
+                    onFaceKycDetectListener.onFaceDetected(faces, false);
                     if (currentProgress != 0) {
                         currentProgress = 0;
                         resetListFaces();
@@ -387,5 +347,21 @@ public class FaceKycProcessor implements FaceKycApi {
             return cropAvatar;
         }
         return null;
+    }
+
+    private void detectFaceBeforeComplete(Bitmap bitmap, Rect bounding, int currentAction, String name,
+                                          OnFaceKycDetectListener onFaceKycDetectListener, int currentProgress) {
+        Bitmap avatar = cropAvatar(bounding, bitmap);
+        if (avatar != null) {
+            Detection detection = facialEngine.detect(avatar);
+            if (detection != Detection.Companion.getEMPTY() && detection.getCategory().getNoWear()) {
+                actions.remove(Integer.valueOf(currentAction));
+                if (actions.size() > 0) {
+                    currentAction = actions.get(0);
+                }
+                onFaceKycDetectListener.onUpdateProgress(currentProgress);
+                onFaceKycDetectListener.onDetectCompleted(currentAction, avatar, name);
+            }
+        }
     }
 }
