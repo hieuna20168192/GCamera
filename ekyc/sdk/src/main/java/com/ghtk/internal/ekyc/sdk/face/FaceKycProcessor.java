@@ -58,6 +58,7 @@ public class FaceKycProcessor implements FaceKycApi {
     private VisionImageProcessor imageProcessor;
 
     private IFacialDetect facialEngine;
+    private boolean isMaskOrGlass;
 
     @Override
     public void startFaceKyc(@NonNull Context context, @NonNull LifecycleOwner lifecycleOwner, @NonNull PreviewView previewView, View viewFace, View tvLabel, @NonNull OnFaceKycDetectListener onFaceKycDetectListener) {
@@ -180,17 +181,21 @@ public class FaceKycProcessor implements FaceKycApi {
                         Detection detection = facialEngine.detect(avatar);
                         if (detection != Detection.Companion.getEMPTY()) {
                             ((TextView) tvLabel).setText(detection.getCategory().getLabel());
-                            onFaceKycDetectListener.onFaceDetected(faces, !detection.getCategory().getNoWear());
-                        } else
-                            onFaceKycDetectListener.onFaceDetected(faces, false);
-                    } else
-                        onFaceKycDetectListener.onFaceDetected(faces, false);
-
+                            isMaskOrGlass = !detection.getCategory().getNoWear();
+                            onFaceKycDetectListener.onFaceDetected(faces, isMaskOrGlass);
+                        } else {
+                            isMaskOrGlass = false;
+                            onFaceKycDetectListener.onFaceDetected(faces, isMaskOrGlass);
+                        }
+                    } else {
+                        isMaskOrGlass = false;
+                        onFaceKycDetectListener.onFaceDetected(faces, isMaskOrGlass);
+                    }
                     LogUtils.d("Chinhnq" + "VIEW : " + " X : " + centerXView + " - Y : " + centerYView);
                     LogUtils.d("Chinhnq" + "FACE : " + " X : " + centerXF + " - Y : " + centerYF);
                     float rotY, rotX, closeLeftEye, closeRightEye, smile;
                     int progress;
-                    if (actions.size() > 0) {
+                    if (actions.size() > 0  && !isMaskOrGlass) {
                         currentAction = actions.get(0);
                         final int count = actions.size();
                         final int doneStepProgress = (SPLIT_ACTION - count + 1) * MAX_PROGRESS / SPLIT_ACTION;
@@ -300,6 +305,8 @@ public class FaceKycProcessor implements FaceKycApi {
                                 }
                                 break;
                         }
+                    } else if (isMaskOrGlass) {
+                        onFaceKycDetectListener.onDetectMaskOrGlass();
                     }
                 } else {
                     onFaceKycDetectListener.onFaceDetected(faces, false);

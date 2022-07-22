@@ -120,10 +120,9 @@ public class KycFaceStep1Fragment extends BaseFragment<BaseViewModel, FragmentKy
             public void onFaceDetected(List<Face> faces, boolean isMaskOrGlass) {
                 switch (faces.size()) {
                     case 0:
-                        if (binding.tvWaring.getVisibility() != View.VISIBLE) {
-                            binding.tvWaring.setText("Vui lòng đặt khuôn mặt vào khung hình");
+                        binding.tvWaring.setText("Vui lòng đặt khuôn mặt vào khung hình");
+                        if (binding.tvWaring.getVisibility() != View.VISIBLE)
                             binding.tvWaring.setVisibility(View.VISIBLE);
-                        }
                         break;
                     case 1:
                         if (binding.tvWaring.getVisibility() == View.VISIBLE && !isMaskOrGlass) {
@@ -134,16 +133,25 @@ public class KycFaceStep1Fragment extends BaseFragment<BaseViewModel, FragmentKy
                         }
                         break;
                     default:
-                        if (binding.tvWaring.getVisibility() != View.VISIBLE) {
-                            binding.tvWaring.setText("Vui lòng di chuyển camera đến khu vực chỉ có mình bạn");
+                        binding.tvWaring.setText("Vui lòng di chuyển camera đến khu vực chỉ có mình bạn");
+                        if (binding.tvWaring.getVisibility() != View.VISIBLE)
                             binding.tvWaring.setVisibility(View.VISIBLE);
-                        }
                         break;
                 }
             }
 
             @Override
+            public void onDetectMaskOrGlass() {
+                binding.txtActionDes.setVisibility(View.INVISIBLE);
+                binding.imvActionLeft.setVisibility(View.INVISIBLE);
+                binding.imvActionRight.setVisibility(View.INVISIBLE);
+                binding.imvActionFace.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
             public void onNextAction(int currentAction) {
+                binding.txtActionDes.setVisibility(View.VISIBLE);
+                binding.tvWaring.setVisibility(View.GONE);
                 LogUtils.d(currentAction + "- action");
                 switch (currentAction) {
                     case HEAD_NOMAL:
