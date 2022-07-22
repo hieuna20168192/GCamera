@@ -117,7 +117,7 @@ public class KycFaceStep1Fragment extends BaseFragment<BaseViewModel, FragmentKy
 
         faceKycApi.startFaceKyc(getActivity().getApplicationContext(), this, binding.previewView, binding.faceProgressBar, binding.tvLabel, new OnFaceKycDetectListener() {
             @Override
-            public void onFaceDetected(List<Face> faces) {
+            public void onFaceDetected(List<Face> faces, boolean isMaskOrGlass) {
                 switch (faces.size()) {
                     case 0:
                         if (binding.tvWaring.getVisibility() != View.VISIBLE) {
@@ -126,8 +126,11 @@ public class KycFaceStep1Fragment extends BaseFragment<BaseViewModel, FragmentKy
                         }
                         break;
                     case 1:
-                        if (binding.tvWaring.getVisibility() == View.VISIBLE) {
+                        if (binding.tvWaring.getVisibility() == View.VISIBLE && !isMaskOrGlass) {
                             binding.tvWaring.setVisibility(View.GONE);
+                        } else if (binding.tvWaring.getVisibility() != View.VISIBLE && isMaskOrGlass) {
+                            binding.tvWaring.setText(R.string.please_remove_mask_or_glasses);
+                            binding.tvWaring.setVisibility(View.VISIBLE);
                         }
                         break;
                     default:
@@ -141,7 +144,6 @@ public class KycFaceStep1Fragment extends BaseFragment<BaseViewModel, FragmentKy
 
             @Override
             public void onNextAction(int currentAction) {
-                binding.tvWaring.setVisibility(View.GONE);
                 LogUtils.d(currentAction + "- action");
                 switch (currentAction) {
                     case HEAD_NOMAL:
